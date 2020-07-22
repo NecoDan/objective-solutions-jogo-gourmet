@@ -31,19 +31,20 @@ public class ExecuteGameService implements IExecuteGameService {
 
     @Override
     public void executarGame(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) throws ServiceException {
-        List<Categoria> itensParaPerguntar = getCategoriaItensParaPerguntar(indicesMapProdutosPorCategoria);
-
-        Categoria retorno = this.iteratorServiceCategorias.percorrer(itensParaPerguntar, Messages::perguntarPorItemAbstractEntity);
-        Categoria chaveIndiceCategoria = Optional.ofNullable(retorno).orElse(this.categoriaOutros);
-
-        List<Prato> pratosParaPerguntar = indicesMapProdutosPorCategoria.get(chaveIndiceCategoria);
-        Optional<Prato> pratoSelecionado = Optional.ofNullable(this.iteratorServicePratos.percorrer(pratosParaPerguntar, Messages::perguntarPorItemAbstractEntity));
-
+        Categoria chaveIndiceCategoria = getCategoriaPor(indicesMapProdutosPorCategoria);
+        Optional<Prato> pratoSelecionado = getOptionalPratoPor(indicesMapProdutosPorCategoria, chaveIndiceCategoria);
         (pratoSelecionado.isPresent() ? this.acaoAoEncontrar : new AcaoService(indicesMapProdutosPorCategoria, chaveIndiceCategoria)).executar();
     }
 
-    private Categoria getCategoria(){
+    private Categoria getCategoriaPor(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) {
+        List<Categoria> itensParaPerguntar = getCategoriaItensParaPerguntar(indicesMapProdutosPorCategoria);
+        Categoria retorno = this.iteratorServiceCategorias.percorrer(itensParaPerguntar, Messages::perguntarPorItemAbstractEntity);
+        return Optional.ofNullable(retorno).orElse(this.categoriaOutros);
+    }
 
+    private Optional<Prato> getOptionalPratoPor(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria, Categoria chaveIndiceCategoria) {
+        List<Prato> pratosParaPerguntar = indicesMapProdutosPorCategoria.get(chaveIndiceCategoria);
+        return Optional.ofNullable(this.iteratorServicePratos.percorrer(pratosParaPerguntar, Messages::perguntarPorItemAbstractEntity));
     }
 
     private List<Categoria> getCategoriaItensParaPerguntar(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) {
