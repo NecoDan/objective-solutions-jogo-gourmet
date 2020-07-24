@@ -13,6 +13,7 @@ import static br.com.objective.solutions.game.utils.RandomicoUtil.gerarValorRand
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class Prato extends AbstractEntity {
+
     public void gerarID(){
         this.setId(gerarValorRandomicoLong());
     }
