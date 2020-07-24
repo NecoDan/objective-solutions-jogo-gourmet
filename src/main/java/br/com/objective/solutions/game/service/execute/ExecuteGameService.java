@@ -26,14 +26,17 @@ public class ExecuteGameService implements IExecuteGameService {
         this.iteratorServiceCategorias = new IteratorService<>();
         this.iteratorServicePratos = new IteratorService<>();
         this.categoriaOutros = CategoriaOutrosBuilder.newBuilder().buildCategoriaOutros();
-        this.acaoAoEncontrar = () -> Messages.exibirMensagem("Acertei a comida que vc queria :) ");
+        this.acaoAoEncontrar = () -> Messages.exibirMensagem("Acertei de novo!");
     }
 
     @Override
     public void executarGame(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) throws ServiceException {
         Categoria chaveIndiceCategoria = getCategoriaPor(indicesMapProdutosPorCategoria);
         Optional<Prato> pratoSelecionado = getOptionalPratoPor(indicesMapProdutosPorCategoria, chaveIndiceCategoria);
-        (pratoSelecionado.isPresent() ? this.acaoAoEncontrar : new AcaoService(indicesMapProdutosPorCategoria, chaveIndiceCategoria)).executar();
+
+        (pratoSelecionado.isPresent()
+                ? this.acaoAoEncontrar
+                : new AcaoService(indicesMapProdutosPorCategoria, chaveIndiceCategoria)).executar();
     }
 
     private Categoria getCategoriaPor(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) {
@@ -48,7 +51,8 @@ public class ExecuteGameService implements IExecuteGameService {
     }
 
     private List<Categoria> getCategoriaItensParaPerguntar(Map<Categoria, List<Prato>> indicesMapProdutosPorCategoria) {
-        return indicesMapProdutosPorCategoria.keySet()
+        return indicesMapProdutosPorCategoria
+                .keySet()
                 .stream()
                 .filter(this::isNotCategoriaOutros)
                 .collect(Collectors.toList());

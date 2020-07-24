@@ -1,5 +1,6 @@
 package br.com.objective.solutions.game.model;
 
+import br.com.objective.solutions.game.utils.algorithm.Pilha;
 import br.com.objective.solutions.game.utils.domain.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +17,8 @@ import static br.com.objective.solutions.game.utils.RandomicoUtil.gerarValorRand
 @EqualsAndHashCode(callSuper = true)
 public class Categoria extends AbstractEntity {
 
+    private Pilha pilha;
+
     public void gerarID() {
         this.setId(gerarValorRandomicoLong());
     }
@@ -25,8 +28,17 @@ public class Categoria extends AbstractEntity {
         return this;
     }
 
+    public void inicializarPilha() {
+        pilha = new Pilha();
+    }
+
+    public Categoria inicializaPilha() {
+        inicializarPilha();
+        return this;
+    }
+
     public boolean isExists(Categoria otherCategoria) {
-        return (Objects.nonNull(otherCategoria)
+        return ((Objects.nonNull(otherCategoria))
                 && this.isNomeValido()
                 && otherCategoria.isNomeValido()
                 && this.getNome().equalsIgnoreCase(otherCategoria.getNome()));

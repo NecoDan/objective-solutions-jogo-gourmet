@@ -14,12 +14,13 @@ public final class Fabrica {
     public static Map<Categoria, List<Prato>> gerarMapIndices() {
         Map<Categoria, List<Prato>> map = new HashMap<>();
 
-        map.put(Categoria.builder().nome("Massa").build(), new LinkedList<>(Arrays.asList(
-                Prato.builder().nome("Lasanha").build().geraID(),
-                Prato.builder().nome("Macarronada").build().geraID())));
-        map.put(CategoriaOutrosBuilder.newBuilder().buildCategoriaOutros(), new LinkedList<>(Arrays.asList(
-                Prato.builder().nome("Bolo de chocolate").build().geraID(),
-                Prato.builder().nome("Bolo de cenoura").build().geraID())));
+        Categoria categoriaMassa = Categoria.builder().nome("Massa").build().geraID().inicializaPilha();
+        Prato pratoItemMassa = Prato.builder().nome("Macarronada").build().geraID();
+        categoriaMassa.getPilha().empilhar(pratoItemMassa);
+
+        map.put(categoriaMassa, new LinkedList<>(Collections.singletonList(pratoItemMassa)));
+        map.put(CategoriaOutrosBuilder.newBuilder().buildCategoriaOutros(), new LinkedList<>(Collections.singletonList(
+                Prato.builder().nome("Bolo de chocolate").build().gerarIDComValor())));
 
         return map;
     }

@@ -1,6 +1,5 @@
 
-t
-java:S4276
-"RRefactor this code to use the more specialised Functional Interface 'Predicate<T>'(è½¬Èùÿÿÿÿ8™ÁÍœ·.
-N
-java:S1905"1Remove this unnecessary cast to "AbstractEntity".(şÄƒ8™ÁÍœ·.
+L
+java:S1905"1Remove this unnecessary cast to "AbstractEntity".(şÄƒ8™ÁÍœ·.
+r
+java:S4276"RRefactor this code to use the more specialised Functional Interface 'Predicate<T>'(è½¬Èùÿÿÿÿ8™ÁÍœ·.

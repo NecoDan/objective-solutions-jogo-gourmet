@@ -18,7 +18,7 @@ public final class Messages {
     }
 
     public static boolean perguntarPorItemAbstractEntity(AbstractEntity abstractEntityItem) {
-        return perguntar(String.format("Sua comida eh %s?", abstractEntityItem.getNome()));
+        return perguntar(String.format("O prato que voce pensou eh %s?", abstractEntityItem.getNome()));
     }
 
     public static boolean perguntar(String pergunta) {

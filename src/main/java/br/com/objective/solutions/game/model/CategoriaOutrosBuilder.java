@@ -7,6 +7,8 @@ public final class CategoriaOutrosBuilder {
     private CategoriaOutrosBuilder() {
         this.categoria = Categoria.builder().build();
         this.categoria.setId(1L);
+        this.categoria.inicializarPilha();
+        this.categoria.getPilha().empilhar(Prato.builder().nome("Bolo de chocolate").build().gerarIDComValor());
     }
 
     public static CategoriaOutrosBuilder newBuilder() {
@@ -14,7 +16,7 @@ public final class CategoriaOutrosBuilder {
     }
 
     public Categoria buildCategoriaOutros() {
-        this.categoria.setNome("Outros");
+        this.categoria.setNome("Bolo de Chocolate");
         return this.categoria;
     }
 }

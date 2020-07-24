@@ -8,6 +8,9 @@ import java.util.function.Function;
 public class IteratorService<T extends AbstractEntity> {
 
     public T percorrer(List<T> items, Function<T, Boolean> perguntador) {
+        if (items == null)
+            return null;
+
         for (T item : items) {
             boolean resposta = perguntador.apply(item);
             if (resposta)
